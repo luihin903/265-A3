@@ -1,0 +1,109 @@
+{
+  "todotree": {
+    "tree": [
+      {
+        "key": 1699028762298,
+        "children": [],
+        "todo": {
+          "content": "1) Add a predator class to your simulation. For this you have to refactor (redesign) your code. You need to create a superclass with two subclasses. One subclass will be for prey creatures. The second subclass will be for the predator. You have the option to use thecreatures that you had in Assignment 2 to be either your prey or predator - adapted to the new requirement though. You have to keep all the shared functionality in the superclass",
+          "id": 1699028762298,
+          "level": "default",
+          "done": false,
+          "start": 1699028762298
+        }
+      },
+      {
+        "key": 1699028772008,
+        "children": [
+          {
+            "key": 1699028778088,
+            "children": [],
+            "todo": {
+              "content": "• For the inheritance/polymorphism design, provide justification – regarding why some goes into superclass, why some are kept in subclasses, adding vs. overriding method etc.). Please write it out with block comments on the very top of these classes (super vs. its two subclasses) files, before the relevant classes’ declarations",
+              "id": 1699028778088,
+              "level": "default",
+              "done": false,
+              "start": 1699028778088
+            }
+          }
+        ],
+        "todo": {
+          "content": "2) Both of these subclasses need to have at least one property as stored in fields that is unique to themselves. Make at least one of these subclasses expand their functionality by adding a subclass only method (e.g. eating for predator). Both subclasses though must override at least one superclass method (e.g. draw) to have different functionality specific to each of themselves. There must be some significant visual features on their appearance, which set apart clearly a predator from a prey creature",
+          "id": 1699028772008,
+          "level": "default",
+          "done": false,
+          "start": 1699028772008
+        }
+      },
+      {
+        "key": 1699028788808,
+        "children": [],
+        "todo": {
+          "content": "3) Create two predators and five prey creatures, and include both of them in a single ArrayList typed with their superclass (i.e. along the line of inclusion polymorphism).When processing the superclass typed ArrayList in panel, you should, as a practice to handle the subclass-only method, use instanceof to identify and type casting to call the subclass’ uniquely defined methods (i.e. subclass-only method).",
+          "id": 1699028788808,
+          "level": "default",
+          "done": false,
+          "start": 1699028788808
+        }
+      },
+      {
+        "key": 1699028795249,
+        "children": [],
+        "todo": {
+          "content": "4) For the preys, you will maintain Assignment 2’s creature movement within the environment, the mechanics for choosing the desired food, and the way for pursuing and respawning food. So there must be three types of objects in the panel: Predators, preys, and static (or moving) foods feeding preys only.",
+          "id": 1699028795249,
+          "level": "default",
+          "done": false,
+          "start": 1699028795249
+        }
+      },
+      {
+        "key": 1699028800752,
+        "children": [],
+        "todo": {
+          "content": "5) The prey will use either a FOV or feeler to detect the existence of a predator, and once detected, it will switch to “escape mode” (consider to use a boolean to set it up), i.e. giving up pursuing food and turning and moving away with a faster speed from the predator for a period of time (again custom timer can be employed), and restore pursuing food with normal speed after the period if survived",
+          "id": 1699028800752,
+          "level": "default",
+          "done": false,
+          "start": 1699028800752
+        }
+      },
+      {
+        "key": 1699028806288,
+        "children": [],
+        "todo": {
+          "content": "6) The predator also uses either an FOV or feeler to detect the existence of a prey, once it identifies one, it will go into “chasing mode”, speeding up to pursue it. Once it catches the prey, it will eat the prey (i.e. make it disappear).",
+          "id": 1699028806288,
+          "level": "default",
+          "done": false,
+          "start": 1699028806288
+        }
+      },
+      {
+        "key": 1699028813383,
+        "children": [],
+        "todo": {
+          "content": "7) All newly added fields must be private or protected (when it makes sense) and provided minimal public interface methods when necessary. Also the names of the class, fields and methods must follow the naming convention with appropriate upper- or lower case for the initial and CamelCase thereafter.",
+          "id": 1699028813383,
+          "level": "default",
+          "done": false,
+          "start": 1699028813383
+        }
+      }
+    ],
+    "expandKeys": [
+      1699028772008
+    ],
+    "schema": "https://github.com/Saber2pr/vsc-ext-todolist/blob/master/src/api/type.ts#L3",
+    "add_mode": "bottom",
+    "virtual": false,
+    "showLine": false,
+    "playFontSize": 24,
+    "title": "TODO",
+    "autoSort": false,
+    "showEndTime": false,
+    "simpleMode": false,
+    "lang": "en",
+    "version": "1699028814783"
+  }
+}
