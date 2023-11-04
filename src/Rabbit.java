@@ -12,17 +12,14 @@ import java.util.ArrayList;
 
 import processing.core.PVector;
 
-public class Rabbit extends Object {
+public class Rabbit extends Animal {
 
-    private PVector vel;
     private int speed;
     private Color color;
     private boolean moving = true;
     private int escaping = 0;
     private float scale;
-    private Area area;
-    private static ArrayList<Rabbit> rabbits;
-    private static final PVector default_dim = new PVector(50, 100);
+    public static final PVector default_dim = new PVector(50, 100);
 
     // Shapes
     Ellipse2D.Double bottomFoot;
@@ -61,16 +58,7 @@ public class Rabbit extends Object {
 
     }
 
-    public static void init(Dimension s, int n) {
-        rabbits = new ArrayList<Rabbit>();
-
-        for (int i = 0; i < n; i ++) {
-            float scale = Util.random(0.5f, 1.5f);
-            rabbits.add(new Rabbit(Util.random(s, default_dim.copy().mult(scale)), default_dim.copy().mult(scale), 2, Util.random(), scale));
-        }
-    }
-
-    private void setShape() {
+    protected void setShape() {
         // feet
         bottomFoot = new Ellipse2D.Double((int) (-dim.x/2), (int) (dim.y/12*5), (int) (dim.x/6*4), (int) (dim.y/12));
         topFoot = new Ellipse2D.Double((int) (-dim.x/6*2.5), (int) (dim.y/12*4), (int) (dim.x/6*4), (int) (dim.y/12));
@@ -118,7 +106,6 @@ public class Rabbit extends Object {
         fov = new Arc2D.Double(-sight, -sight, sight*2, sight*2, -55, 110, Arc2D.PIE);
     }
 
-    @Override
     public void draw(Graphics2D g2) {
         if (RabbitApp.drawBoundingBox) {
             g2.setColor(Color.PINK);
@@ -191,13 +178,9 @@ public class Rabbit extends Object {
         g2.setTransform(af);
     }
 
-    public static void drawAll(Graphics2D g2) {
-        for (Rabbit r : rabbits) r.draw(g2);
-    }
-
-    public void move(ArrayList<Carrot> carrots, Dimension s) {
+    public void move(ArrayList<Carrot> carrots, Dimension s, ArrayList<Animal> animals) {
         if (moving) {
-            checkCollision(s);
+            checkCollision(s, animals);
 
             seek(carrots);
             vel.normalize();
@@ -206,12 +189,8 @@ public class Rabbit extends Object {
             pos.add(vel);
         }
     }
-
-    public static void moveAll(ArrayList<Carrot> carrots, Dimension s) {
-        for (Rabbit r : rabbits) r.move(carrots, s);
-    }
     
-    private void checkCollision(Dimension s) {
+    private void checkCollision(Dimension s, ArrayList<Animal> animals) {
         int margin = RabbitApp.margin;
 
         Rectangle2D.Double top = new Rectangle2D.Double(margin, 0, s.width-margin*2, margin);
@@ -226,7 +205,7 @@ public class Rabbit extends Object {
         if (getFOV().intersects(left)) accel.add(1, 0);
         if (getFOV().intersects(right)) accel.add(-1, 0);
 
-        for (Rabbit r : rabbits) {
+        for (Animal r : animals) {
             if (this.scale < r.scale && getFOV().intersects(r.getBoundary().getBounds2D())) {
                 if (r.pos.x < pos.x) accel.add(1, 0);
                 if (r.pos.x > pos.x) accel.add(-1, 0);
@@ -271,9 +250,6 @@ public class Rabbit extends Object {
                     targets[0] = c;
                 }
                 else if (carrots.size() > 1) {
-                    System.out.println(carrots.size());
-                    System.out.println(targets[1]);
-                    System.out.println(c);
                     if (newAFC > getAFC(targets[1])) targets[1] = c;
                 }
             }
@@ -296,31 +272,12 @@ public class Rabbit extends Object {
         }
     }
 
-    public static void eatAll(ArrayList<Carrot> carrots) {
-        for (Rabbit r : rabbits) r.eat(carrots);
-    }
-
     public void start() {
         moving = true;
     }
 
     public void stop() {
         moving = false;
-    }
-
-
-
-    public ArrayList<Rabbit> getAll() {
-        return rabbits;
-    }
-
-    private Shape getBoundary() {
-        AffineTransform at = new AffineTransform();
-        at.translate(pos.x, pos.y);
-        at.rotate(vel.heading());
-        if (vel.x < 0) at.rotate(Math.PI);
-        if (vel.x > 0) at.scale(-1, 1);
-        return at.createTransformedShape(area);
     }
 
     private Shape getFOV() {

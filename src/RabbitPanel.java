@@ -1,13 +1,3 @@
-
-
-
-/*
-    I did the bonus question
-*/
-
-
-
-
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -16,21 +6,34 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 
 import javax.swing.JPanel;
 import javax.swing.Timer;
+
+import processing.core.PVector;
 
 public class RabbitPanel extends JPanel implements ActionListener {
     
     private Timer t;
     public static Dimension size;
+    private ArrayList<Animal> animals = new ArrayList<Animal>();
 
     public RabbitPanel(Dimension initialSize) {
         super();
 
         size = initialSize;
 
-        Rabbit.init(size, Util.random(5, 8));
+        for (int i = 0; i < 3; i ++) {
+            float scale = Util.random(0.5f, 1.5f);
+            PVector dim = Rabbit.default_dim.copy().mult(scale);
+            animals.add(new Rabbit(Util.random(size, dim), dim, 2, Util.random(), scale));
+        }
+        for (int i = 0; i < 3; i ++) {
+            float scale = Util.random(0.5f, 1.5f);
+            PVector dim = Rabbit.default_dim.copy().mult(scale);
+            animals.add(new Lion(Util.random(size, dim), dim));
+        }
         
         Tree.init(6, initialSize);
         Flower.init(6, initialSize);
@@ -55,7 +58,7 @@ public class RabbitPanel extends JPanel implements ActionListener {
         Tree.drawAll(g2);
         Carrot.drawAll(g2);
         Flower.drawAll(g2);
-        Rabbit.drawAll(g2);
+        for (Animal a : animals) a.draw(g2);
 
         // g2.drawOval(0, 0, 100, 100);
         // g2.drawOval(size.width-20-100, size.height-20-100, 100, 100);
@@ -68,20 +71,17 @@ public class RabbitPanel extends JPanel implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        Rabbit.moveAll(Carrot.get(), getSize());
-        Rabbit.eatAll(Carrot.get());
+        for (Animal a : animals) {
+            a.move(Carrot.get(), getSize(), animals);
+            a.eat(Carrot.get());
+        }
         Carrot.grow();
 
         repaint();
     }
 
-    /*
-     * 1. check if it is a double-click using modulus
-     * 2. pass the event to the Carrot class and create a new carrot
-     * 3. pass the event to change the carrot's size and position
-     * 4. the carrot stop growing if the mouse is no longer pressing
-     * 5. the carrot sclaes based on the size field when drawing
-     */
+
+
     private class MyMouseAdapter extends MouseAdapter {
         public void mousePressed(MouseEvent e) {
             if (e.getClickCount() % 2 == 0) {

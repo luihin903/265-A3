@@ -55,7 +55,6 @@ public class Carrot extends Object {
         int size = Util.random(50, 150);
         PVector pos = Util.random(RabbitPanel.size, default_dim.copy().mult(size/default_dim.x));
         carrots.add(new Carrot(pos, size));
-        System.out.println(pos);
     }
 
     private void setShape() {
