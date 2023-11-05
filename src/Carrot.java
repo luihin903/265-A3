@@ -83,7 +83,7 @@ public class Carrot extends Object {
     @Override
     public void draw(Graphics2D g2) {
 
-        if (RabbitApp.drawBoundingBox) {
+        if (Setting.drawBoundingBox) {
             g2.setColor(Color.PINK);
             g2.draw(getBoundary().getBounds2D());
         }

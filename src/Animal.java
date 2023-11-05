@@ -1,3 +1,4 @@
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.Shape;
@@ -22,10 +23,16 @@ public abstract class Animal extends Object {
         setShape();
     }
 
-    protected abstract void draw(Graphics2D g);
     protected abstract void move(ArrayList<Carrot> carrots, Dimension s, ArrayList<Animal> animals);
     protected abstract void eat(ArrayList<Carrot> carrots);
     protected abstract void setShape();
+
+    protected void draw(Graphics2D g) {
+        if (Setting.drawBoundingBox) {
+            g.setColor(Color.PINK);
+            g.draw(getBoundary().getBounds2D());
+        }
+    }
 
     protected Shape getBoundary() {
         AffineTransform at = new AffineTransform();

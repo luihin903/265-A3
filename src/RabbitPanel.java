@@ -31,7 +31,7 @@ public class RabbitPanel extends JPanel implements ActionListener {
         }
         for (int i = 0; i < 3; i ++) {
             float scale = Util.random(0.5f, 1.5f);
-            PVector dim = Rabbit.default_dim.copy().mult(scale);
+            PVector dim = Lion.default_dim.copy().mult(scale);
             animals.add(new Lion(Util.random(size, dim), dim));
         }
         
@@ -39,7 +39,7 @@ public class RabbitPanel extends JPanel implements ActionListener {
         Flower.init(6, initialSize);
         Carrot.init(24); // greater or equal to 3 times the creatures are too many
 
-        t = new Timer((int) (1000/RabbitApp.FPS), this);
+        t = new Timer((int) (1000/Setting.FPS), this);
         t.start();
 
         addMouseListener(new MyMouseAdapter());

@@ -107,11 +107,8 @@ public class Rabbit extends Animal {
     }
 
     public void draw(Graphics2D g2) {
-        if (RabbitApp.drawBoundingBox) {
-            g2.setColor(Color.PINK);
-            g2.draw(getBoundary().getBounds2D());
-            g2.draw(getFOV().getBounds2D());
-        }
+        super.draw(g2);
+        g2.draw(getFOV().getBounds2D());
 
         AffineTransform af = g2.getTransform();
 
@@ -191,7 +188,7 @@ public class Rabbit extends Animal {
     }
     
     private void checkCollision(Dimension s, ArrayList<Animal> animals) {
-        int margin = RabbitApp.margin;
+        int margin = Setting.margin;
 
         Rectangle2D.Double top = new Rectangle2D.Double(margin, 0, s.width-margin*2, margin);
         Rectangle2D.Double bottom = new Rectangle2D.Double(margin, s.height-margin, s.width-margin*2, margin);
