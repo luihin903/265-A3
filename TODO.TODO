@@ -5,11 +5,13 @@
         "key": 1699028762298,
         "children": [],
         "todo": {
-          "content": "1) Add a predator class to your simulation. For this you have to refactor (redesign) your code. You need to create a superclass with two subclasses. One subclass will be for prey creatures. The second subclass will be for the predator. You have the option to use thecreatures that you had in Assignment 2 to be either your prey or predator - adapted to the new requirement though. You have to keep all the shared functionality in the superclass",
+          "content": "1) Add a predator class to your simulation. For this you have to refactor (redesign) your code. You need to create a superclass with two subclasses. One subclass will be for prey creatures. The second subclass will be for the predator. You have the option to use the creatures that you had in Assignment 2 to be either your prey or predator - adapted to the new requirement though. You have to keep all the shared functionality in the superclass",
           "id": 1699028762298,
           "level": "default",
-          "done": false,
-          "start": 1699028762298
+          "done": true,
+          "start": 1699028762298,
+          "focus": false,
+          "end": 1699208439613
         }
       },
       {
@@ -22,8 +24,10 @@
               "content": "• For the inheritance/polymorphism design, provide justification – regarding why some goes into superclass, why some are kept in subclasses, adding vs. overriding method etc.). Please write it out with block comments on the very top of these classes (super vs. its two subclasses) files, before the relevant classes’ declarations",
               "id": 1699028778088,
               "level": "default",
-              "done": false,
-              "start": 1699028778088
+              "done": true,
+              "start": 1699028778088,
+              "focus": false,
+              "end": 1699208866145
             }
           }
         ],
@@ -86,8 +90,10 @@
           "content": "7) All newly added fields must be private or protected (when it makes sense) and provided minimal public interface methods when necessary. Also the names of the class, fields and methods must follow the naming convention with appropriate upper- or lower case for the initial and CamelCase thereafter.",
           "id": 1699028813383,
           "level": "default",
-          "done": false,
-          "start": 1699028813383
+          "done": true,
+          "start": 1699028813383,
+          "focus": false,
+          "end": 1699208540226
         }
       }
     ],
@@ -104,6 +110,6 @@
     "showEndTime": false,
     "simpleMode": false,
     "lang": "en",
-    "version": "1699028814783"
+    "version": "1699208866203"
   }
 }

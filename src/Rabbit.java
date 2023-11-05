@@ -1,64 +1,52 @@
+/*
+ * This is a prey
+ * It includes some fields which are not in common with the predator
+ * Some methods are overrided if they have some shared code with the predator,
+ * some methods are added if not
+ */
+
+
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
-import java.awt.Shape;
 import java.awt.geom.AffineTransform;
-import java.awt.geom.Arc2D;
 import java.awt.geom.Area;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Line2D;
-import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 
 import processing.core.PVector;
 
 public class Rabbit extends Animal {
 
-    private int speed;
     private Color color;
-    private boolean moving = true;
     private int escaping = 0;
-    private float scale;
     public static final PVector default_dim = new PVector(50, 100);
 
     // Shapes
-    Ellipse2D.Double bottomFoot;
-    Ellipse2D.Double topFoot;
-    Ellipse2D.Double bottomHand;
-    Ellipse2D.Double topHand;
-    Ellipse2D.Double leftEar;
-    Ellipse2D.Double rightEar;
-    Ellipse2D.Double body;
-    Ellipse2D.Double head;
-    Ellipse2D.Double tail;
-    Ellipse2D.Double leftEye;
-    Ellipse2D.Double rightEye;
-    Line2D.Double[] face;
-    Arc2D.Double fov;
+    private Ellipse2D.Double bottomFoot;
+    private Ellipse2D.Double topFoot;
+    private Ellipse2D.Double bottomHand;
+    private Ellipse2D.Double topHand;
+    private Ellipse2D.Double leftEar;
+    private Ellipse2D.Double rightEar;
+    private Ellipse2D.Double body;
+    private Ellipse2D.Double head;
+    private Ellipse2D.Double tail;
+    private Ellipse2D.Double leftEye;
+    private Ellipse2D.Double rightEye;
+    private Line2D.Double[] face;
 
-    // a constructor that initializes each of the fields with some parameter
-    public Rabbit(PVector pos, PVector vel, PVector dim, int speed, Color color, boolean moving) {
-        super();
-        this.pos = pos;
-        this.vel = vel;
-        this.dim = dim;
-        this.speed = speed;
+    public Rabbit(PVector pos, PVector dim, int speed, float scale, Color color) {
+        super(pos, dim, speed, scale);
         this.color = color;
-        this.moving = moving;
-    }
-
-    public Rabbit(PVector pos, PVector dim, int speed, Color color, float scale) {
-        super(pos, dim);
-        this.speed = speed;
-        this.vel = new PVector(Util.random(-100, 100), Util.random(-100, 100));
-        this.color = color;
-        this.scale = scale;
-
         setShape();
-
     }
 
+    @Override
     protected void setShape() {
+        super.setShape();
+
         // feet
         bottomFoot = new Ellipse2D.Double((int) (-dim.x/2), (int) (dim.y/12*5), (int) (dim.x/6*4), (int) (dim.y/12));
         topFoot = new Ellipse2D.Double((int) (-dim.x/6*2.5), (int) (dim.y/12*4), (int) (dim.x/6*4), (int) (dim.y/12));
@@ -101,14 +89,11 @@ public class Rabbit extends Animal {
         area.add(new Area(topFoot));
         area.add(new Area(bottomFoot));
         area.add(new Area(tail));
-
-        float sight = 50 + dim.x * speed * 0.5f;
-        fov = new Arc2D.Double(-sight, -sight, sight*2, sight*2, -55, 110, Arc2D.PIE);
     }
 
+    @Override
     public void draw(Graphics2D g2) {
         super.draw(g2);
-        g2.draw(getFOV().getBounds2D());
 
         AffineTransform af = g2.getTransform();
 
@@ -174,33 +159,10 @@ public class Rabbit extends Animal {
 
         g2.setTransform(af);
     }
-
-    public void move(ArrayList<Carrot> carrots, Dimension s, ArrayList<Animal> animals) {
-        if (moving) {
-            checkCollision(s, animals);
-
-            seek(carrots);
-            vel.normalize();
-            vel.mult(speed);
-
-            pos.add(vel);
-        }
-    }
     
-    private void checkCollision(Dimension s, ArrayList<Animal> animals) {
-        int margin = Setting.margin;
-
-        Rectangle2D.Double top = new Rectangle2D.Double(margin, 0, s.width-margin*2, margin);
-        Rectangle2D.Double bottom = new Rectangle2D.Double(margin, s.height-margin, s.width-margin*2, margin);
-        Rectangle2D.Double left = new Rectangle2D.Double(0, margin, margin, s.height-margin*2);
-        Rectangle2D.Double right = new Rectangle2D.Double(s.width-margin, margin, margin, s.height-margin*2);
-
-        PVector accel = new PVector(0, 0);
-
-        if (getFOV().intersects(top)) accel.add(0, 1);
-        if (getFOV().intersects(bottom)) accel.add(0, -1);
-        if (getFOV().intersects(left)) accel.add(1, 0);
-        if (getFOV().intersects(right)) accel.add(-1, 0);
+    @Override
+    protected PVector checkCollision(Dimension s, ArrayList<Animal> animals) {
+        PVector accel = super.checkCollision(s, animals);
 
         for (Animal r : animals) {
             if (this.scale < r.scale && getFOV().intersects(r.getBoundary().getBounds2D())) {
@@ -213,18 +175,11 @@ public class Rabbit extends Animal {
         }
         if (escaping != 0) escaping --;
 
-        vel.add(accel.mult(0.5f));
-        vel.normalize();
-        vel.mult(speed);
+        return accel;
     }
 
-    /*
-     * 1. check if the arraylist is empty
-     * 2. get the first carrot
-     * 3. minus this.pos from carrot.pos to get this.vel
-     * 4. the rabbit will stop and eat the food on the way
-     */
-    private void seek(ArrayList<Carrot> carrots) {
+    @Override
+    protected void seek(ArrayList<Carrot> carrots) {
         if (carrots.size() != 0) {
             Carrot[] targets = new Carrot[2];
             
@@ -275,13 +230,6 @@ public class Rabbit extends Animal {
 
     public void stop() {
         moving = false;
-    }
-
-    private Shape getFOV() {
-        AffineTransform at = new AffineTransform();
-        at.translate(pos.x, pos.y);
-        at.rotate(vel.heading());
-        return at.createTransformedShape(fov);
     }
 
     private float getAFC(Carrot c) {

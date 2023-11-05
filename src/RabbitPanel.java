@@ -27,12 +27,12 @@ public class RabbitPanel extends JPanel implements ActionListener {
         for (int i = 0; i < 3; i ++) {
             float scale = Util.random(0.5f, 1.5f);
             PVector dim = Rabbit.default_dim.copy().mult(scale);
-            animals.add(new Rabbit(Util.random(size, dim), dim, 2, Util.random(), scale));
+            animals.add(new Rabbit(Util.random(size, dim), dim, 2, scale, Util.random()));
         }
         for (int i = 0; i < 3; i ++) {
             float scale = Util.random(0.5f, 1.5f);
             PVector dim = Lion.default_dim.copy().mult(scale);
-            animals.add(new Lion(Util.random(size, dim), dim));
+            animals.add(new Lion(Util.random(size, dim), dim, 2, scale));
         }
         
         Tree.init(6, initialSize);

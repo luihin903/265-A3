@@ -1,5 +1,13 @@
+/*
+ * This is a predator
+ * It includes some fields which are not in common with the prey
+ * Some methods are overrided if they have some shared code with the prey,
+ * some methods are added if not
+ */
+
+
+import java.awt.BasicStroke;
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.Polygon;
 import java.awt.geom.AffineTransform;
@@ -13,6 +21,7 @@ import processing.core.PVector;
 
 public class Lion extends Animal {
     
+    private boolean chasing = false;
     public static final PVector default_dim = new PVector(200, 100);
 
     private Ellipse2D.Double around;
@@ -24,20 +33,17 @@ public class Lion extends Animal {
     private Ellipse2D.Double rightFoot;
     private Ellipse2D.Double leftEye;
     private Ellipse2D.Double rightEye;
-    private Arc2D.Double tail;
     private Polygon nose;
-    private Line2D.Double[] face ;
+    private Line2D.Double[] face;
+    private Arc2D.Double tail;
+    private Ellipse2D.Double end;
 
-
-    public Lion() {
-        super();
-    }
-    public Lion(PVector pos, PVector dim) {
-        super(pos, dim);
-        vel = new PVector(Util.random(-100, 100), Util.random(-100, 100));
+    public Lion(PVector pos, PVector dim, double speed, double scale) {
+        super(pos, dim, speed, scale);
     }
 
     protected void setShape() {
+        super.setShape();
 
         around = new Ellipse2D.Double(-dim.x/2, -dim.y/2, dim.x/3, dim.y/1.5);
         head = new Ellipse2D.Double(-dim.x/2 + dim.x/24, -dim.y/2 + dim.y/12, dim.x/4, dim.y/2);
@@ -61,12 +67,17 @@ public class Lion extends Animal {
         face[1] = new Line2D.Double(-dim.x/3, -dim.y/16, -dim.x/3 - dim.x/16, -dim.y/16 + dim.y/32);
         face[2] = new Line2D.Double(-dim.x/3, -dim.y/16, -dim.x/3 + dim.x/16, -dim.y/16 + dim.y/32);
 
+        tail = new Arc2D.Double(dim.x/6, -dim.y/6, dim.x/4, dim.y/4, 15, 180, Arc2D.OPEN);
+        end = new Ellipse2D.Double(dim.x/2.5, -dim.y/15, dim.x/20, dim.y/10);
+
         area = new Area(around);
         area.add(new Area(body));
         area.add(new Area(leftHand));
         area.add(new Area(rightHand));
         area.add(new Area(leftFoot));
         area.add(new Area(rightFoot));
+        area.add(new Area(tail));
+        area.add(new Area(end));
     }
 
     @Override
@@ -75,11 +86,9 @@ public class Lion extends Animal {
         AffineTransform at = g.getTransform();
         g.translate(pos.x, pos.y);
         g.rotate(vel.heading());
+        g.draw(fov);
         if (vel.x < 0) g.rotate(Math.PI);
         if (vel.x > 0) g.scale(-1, 1);
-
-        g.setColor(Color.RED);
-        g.drawRect((int) (-dim.x/2), (int) (-dim.y/2), (int) dim.x, (int) dim.y);
 
         g.setColor(Color.BLACK);
         g.draw(body);
@@ -95,11 +104,15 @@ public class Lion extends Animal {
         g.fill(rightHand);
         g.fill(leftFoot);
         g.fill(rightFoot);
+        
 
         g.setColor(new Color(135, 67, 18));
         g.fill(around);
         g.setColor(Color.ORANGE);
         g.fill(head);
+        g.setStroke(new BasicStroke(dim.y/10));
+        g.draw(tail);
+        g.setStroke(new BasicStroke(1));
 
         g.setColor(Color.BLACK);
         g.fill(leftEye);
@@ -107,11 +120,10 @@ public class Lion extends Animal {
         g.fill(nose);
         for (int i = 0; i < face.length; i ++) g.draw(face[i]);
 
+        g.setColor(new Color(135, 67, 18));
+        g.fill(end);
+
         g.setTransform(at);
-    }
-
-    public void move(ArrayList<Carrot> carrots, Dimension s, ArrayList<Animal> animals) {
-
     }
 
     public void eat(ArrayList<Carrot> carrots) {
