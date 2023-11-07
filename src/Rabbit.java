@@ -101,7 +101,7 @@ public class Rabbit extends Animal {
 
         // I don't know if this what you mean by "facing its moving direction", but the rabbits look weird.
         g2.rotate(vel.heading());
-        g2.draw(fov);
+        g2.setColor(Color.RED); g2.draw(fov);
         if (vel.x < 0) g2.rotate(Math.PI);
         if (vel.x > 0) g2.scale(-1, 1);
 
@@ -160,55 +160,91 @@ public class Rabbit extends Animal {
         g2.setTransform(af);
     }
     
-    @Override
-    protected PVector checkCollision(Dimension s, ArrayList<Animal> animals) {
-        PVector accel = super.checkCollision(s, animals);
-
-        for (Animal r : animals) {
-            if (this.scale < r.scale && getFOV().intersects(r.getBoundary().getBounds2D())) {
-                if (r.pos.x < pos.x) accel.add(1, 0);
-                if (r.pos.x > pos.x) accel.add(-1, 0);
-                if (r.pos.y < pos.y) accel.add(0, 1);
-                if (r.pos.y > pos.y) accel.add(0, -1);
-                escaping = 30;
-            }
+    public void move(ArrayList<Carrot> carrots, Dimension s, ArrayList<Animal> animals) {
+        PVector accel = observe(animals);
+        if (moving) {
+            accel = seek(accel, carrots);
+            super.move(accel, s, animals);
         }
-        if (escaping != 0) escaping --;
-
-        return accel;
+        if (escaping > 0) {
+            pos.add(vel); // speed up
+            escaping --;
+        }
     }
 
-    @Override
-    protected void seek(ArrayList<Carrot> carrots) {
+    // @Override
+    // protected PVector checkCollision(PVector accel, Dimension s, ArrayList<Animal> animals) {
+    //     accel = super.checkCollision(accel, s, animals);
+
+    //     // for (Animal r : animals) {
+    //     //     if (this.scale < r.scale && getFOV().intersects(r.getBoundary().getBounds2D())) {
+    //     //         if (r.pos.x < pos.x) accel.add(1, 0);
+    //     //         if (r.pos.x > pos.x) accel.add(-1, 0);
+    //     //         if (r.pos.y < pos.y) accel.add(0, 1);
+    //     //         if (r.pos.y > pos.y) accel.add(0, -1);
+    //     //         escaping = 30;
+    //     //     }
+    //     // }
+    //     // if (escaping != 0) escaping --;
+
+    //     return accel;
+    // }
+
+    protected PVector seek(PVector accel, ArrayList<Carrot> carrots) {
+        
         if (carrots.size() != 0) {
-            Carrot[] targets = new Carrot[2];
+            // Carrot[] targets = new Carrot[2];
             
-            // load 1 or 2 carrot(s) into the array
-            targets[0] = carrots.get(0);
-            if (carrots.size() > 1) {
-                if (getAFC(carrots.get(1)) > getAFC(targets[0])) {
-                    targets[1] = targets[0];
-                    targets[0] = carrots.get(1);
-                }
-                else {
-                    targets[1] = carrots.get(1);
-                }
-            }
+            // // load 1 or 2 carrot(s) into the array
+            // targets[0] = carrots.get(0);
+            // if (carrots.size() > 1) {
+            //     if (getAFC(carrots.get(1)) > getAFC(targets[0])) {
+            //         targets[1] = targets[0];
+            //         targets[0] = carrots.get(1);
+            //     }
+            //     else {
+            //         targets[1] = carrots.get(1);
+            //     }
+            // }
 
+            // for (Carrot c : carrots) {
+            //     float newAFC = getAFC(c);
+            //     if (newAFC > getAFC(targets[0])) {
+            //         if (carrots.size() > 1) targets[1] = targets[0];
+            //         targets[0] = c;
+            //     }
+            //     else if (carrots.size() > 1) {
+            //         if (newAFC > getAFC(targets[1])) targets[1] = c;
+            //     }
+            // }
+
+            // vel = targets[escaping > 0 ? 1 : 0].pos.copy();
+
+            Carrot target = carrots.get(0);
             for (Carrot c : carrots) {
-                float newAFC = getAFC(c);
-                if (newAFC > getAFC(targets[0])) {
-                    if (carrots.size() > 1) targets[1] = targets[0];
-                    targets[0] = c;
-                }
-                else if (carrots.size() > 1) {
-                    if (newAFC > getAFC(targets[1])) targets[1] = c;
+                if (getAFC(c) > getAFC(target)) {
+                    target = c;
                 }
             }
 
-            vel = targets[escaping > 0 ? 1 : 0].pos.copy();
-            vel.sub(this.pos);
+            accel.add(PVector.sub(target.getPos().copy(), this.pos).normalize());
         }
+
+        return accel.copy();
+    }
+
+    private PVector observe(ArrayList<Animal> animals) {
+        PVector accel = new PVector(0, 0);
+        for (Animal a : animals) {
+            if (a instanceof Lion) {
+                if (this.getFOV().intersects(a.getBoundary().getBounds2D())) {
+                    accel.add(PVector.sub(this.pos, a.getPos()).normalize().mult(3));
+                    escaping = 60;
+                    moving = true;
+                }
+            }
+        }
+        return accel;
     }
 
     public void eat(ArrayList<Carrot> carrots) {

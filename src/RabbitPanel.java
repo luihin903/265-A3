@@ -24,12 +24,12 @@ public class RabbitPanel extends JPanel implements ActionListener {
 
         size = initialSize;
 
-        for (int i = 0; i < 3; i ++) {
+        for (int i = 0; i < 5; i ++) {
             float scale = Util.random(0.5f, 1.5f);
             PVector dim = Rabbit.default_dim.copy().mult(scale);
             animals.add(new Rabbit(Util.random(size, dim), dim, 2, scale, Util.random()));
         }
-        for (int i = 0; i < 3; i ++) {
+        for (int i = 0; i < 2; i ++) {
             float scale = Util.random(0.5f, 1.5f);
             PVector dim = Lion.default_dim.copy().mult(scale);
             animals.add(new Lion(Util.random(size, dim), dim, 2, scale));
@@ -71,10 +71,21 @@ public class RabbitPanel extends JPanel implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        for (Animal a : animals) {
-            a.move(Carrot.get(), getSize(), animals);
-            a.eat(Carrot.get());
+        
+        for (int i = 0; i < animals.size(); i ++) {
+            Animal a = animals.get(i);
+            if (a instanceof Rabbit) {
+                Rabbit r = (Rabbit) a;
+                r.move(Carrot.get(), getSize(), animals);
+                r.eat(Carrot.get());
+            }
+            else if (a instanceof Lion) {
+                Lion l = (Lion) a;
+                l.move(getSize(), animals);
+                l.eat(animals);
+            }
         }
+
         Carrot.grow();
 
         repaint();

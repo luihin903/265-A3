@@ -36,11 +36,9 @@ public abstract class Animal extends Object {
         this.scale = scale;
         setShape();
     }
-
-    protected abstract void eat(ArrayList<Carrot> carrots);
     
     protected void setShape() {
-        double sight = 50 + dim.x * speed * 0.5f;
+        double sight = 100 + dim.x * dim.y * speed / 512;
         fov = new Arc2D.Double(-sight, -sight, sight*2, sight*2, -55, 110, Arc2D.PIE);
     }
 
@@ -51,28 +49,23 @@ public abstract class Animal extends Object {
         }
     }
 
-    protected void move(ArrayList<Carrot> carrots, Dimension s, ArrayList<Animal> animals) {
-
-        if (moving) {
-            PVector accel = checkCollision(s, animals);
-
-            vel.add(accel.mult(0.5f));
-            seek(carrots);
-            vel.normalize();
-            vel.mult((float) speed);
-            pos.add(vel);
-        }
+    protected void move(PVector accel, Dimension s, ArrayList<Animal> animals) {
+        
+        accel = checkCollision(accel, s, animals);
+        vel.add(accel.mult(0.5f));
+        vel.normalize();
+        vel.mult((float) speed);
+        pos.add(vel);
+        
     }
 
-    protected PVector checkCollision(Dimension s, ArrayList<Animal> animals) {
+    protected PVector checkCollision(PVector accel, Dimension s, ArrayList<Animal> animals) {
         int margin = Setting.margin;
 
         Rectangle2D.Double top = new Rectangle2D.Double(margin, 0, s.width-margin*2, margin);
         Rectangle2D.Double bottom = new Rectangle2D.Double(margin, s.height-margin, s.width-margin*2, margin);
         Rectangle2D.Double left = new Rectangle2D.Double(0, margin, margin, s.height-margin*2);
         Rectangle2D.Double right = new Rectangle2D.Double(s.width-margin, margin, margin, s.height-margin*2);
-
-        PVector accel = new PVector(0, 0);
 
         if (getFOV().intersects(top)) accel.add(0, 1);
         if (getFOV().intersects(bottom)) accel.add(0, -1);
@@ -81,8 +74,6 @@ public abstract class Animal extends Object {
 
         return accel.copy();
     }
-
-    protected void seek(ArrayList<Carrot> carrots) {}
 
     protected Shape getBoundary() {
         AffineTransform at = new AffineTransform();

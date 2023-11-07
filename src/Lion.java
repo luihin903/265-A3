@@ -8,6 +8,7 @@
 
 import java.awt.BasicStroke;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.Polygon;
 import java.awt.geom.AffineTransform;
@@ -86,7 +87,7 @@ public class Lion extends Animal {
         AffineTransform at = g.getTransform();
         g.translate(pos.x, pos.y);
         g.rotate(vel.heading());
-        g.draw(fov);
+        g.setColor(Color.RED); g.draw(fov);
         if (vel.x < 0) g.rotate(Math.PI);
         if (vel.x > 0) g.scale(-1, 1);
 
@@ -126,8 +127,37 @@ public class Lion extends Animal {
         g.setTransform(at);
     }
 
-    public void eat(ArrayList<Carrot> carrots) {
+    public void move(Dimension s, ArrayList<Animal> animals) {
+        PVector accel = seek(animals);
+        super.move(accel, s, animals);
+        if (chasing) pos.add(vel); // speed up
+    }
 
+    private PVector seek(ArrayList<Animal> animals) {
+        PVector accel = new PVector(0, 0);
+        for (Animal a : animals) {
+            if (a instanceof Rabbit) {
+                if (this.getFOV().intersects(a.getBoundary().getBounds2D())) {
+                    accel = a.getPos().copy();
+                    accel.sub(this.pos);
+                    accel.normalize();
+                    chasing = true;
+                }
+            }
+        }
+        return accel;
+    }
+
+    public void eat(ArrayList<Animal> animals) {
+        for (int i = 0; i < animals.size(); i ++) {
+            if (animals.get(i) instanceof Rabbit) {
+                Rabbit r = (Rabbit) animals.get(i);
+                if (this.getBoundary().intersects(r.getBoundary().getBounds2D())) {
+                    animals.remove(i);
+                    chasing = false;
+                }
+            }
+        }
     }
 
 }

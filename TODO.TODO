@@ -35,19 +35,23 @@
           "content": "2) Both of these subclasses need to have at least one property as stored in fields that is unique to themselves. Make at least one of these subclasses expand their functionality by adding a subclass only method (e.g. eating for predator). Both subclasses though must override at least one superclass method (e.g. draw) to have different functionality specific to each of themselves. There must be some significant visual features on their appearance, which set apart clearly a predator from a prey creature",
           "id": 1699028772008,
           "level": "default",
-          "done": false,
-          "start": 1699028772008
+          "done": true,
+          "start": 1699028772008,
+          "focus": false,
+          "end": 1699223403534
         }
       },
       {
         "key": 1699028788808,
         "children": [],
         "todo": {
-          "content": "3) Create two predators and five prey creatures, and include both of them in a single ArrayList typed with their superclass (i.e. along the line of inclusion polymorphism).When processing the superclass typed ArrayList in panel, you should, as a practice to handle the subclass-only method, use instanceof to identify and type casting to call the subclass’ uniquely defined methods (i.e. subclass-only method).",
+          "content": "3) Create two predators and five prey creatures, and include both of them in a single ArrayList typed with their superclass (i.e. along the line of inclusion polymorphism). When processing the superclass typed ArrayList in panel, you should, as a practice to handle the subclass-only method, use instanceof to identify and type casting to call the subclass’ uniquely defined methods (i.e. subclass-only method).",
           "id": 1699028788808,
           "level": "default",
-          "done": false,
-          "start": 1699028788808
+          "done": true,
+          "start": 1699028788808,
+          "focus": false,
+          "end": 1699223448071
         }
       },
       {
@@ -57,8 +61,10 @@
           "content": "4) For the preys, you will maintain Assignment 2’s creature movement within the environment, the mechanics for choosing the desired food, and the way for pursuing and respawning food. So there must be three types of objects in the panel: Predators, preys, and static (or moving) foods feeding preys only.",
           "id": 1699028795249,
           "level": "default",
-          "done": false,
-          "start": 1699028795249
+          "done": true,
+          "start": 1699028795249,
+          "focus": false,
+          "end": 1699223620419
         }
       },
       {
@@ -68,8 +74,10 @@
           "content": "5) The prey will use either a FOV or feeler to detect the existence of a predator, and once detected, it will switch to “escape mode” (consider to use a boolean to set it up), i.e. giving up pursuing food and turning and moving away with a faster speed from the predator for a period of time (again custom timer can be employed), and restore pursuing food with normal speed after the period if survived",
           "id": 1699028800752,
           "level": "default",
-          "done": false,
-          "start": 1699028800752
+          "done": true,
+          "start": 1699028800752,
+          "focus": false,
+          "end": 1699323289890
         }
       },
       {
@@ -79,8 +87,10 @@
           "content": "6) The predator also uses either an FOV or feeler to detect the existence of a prey, once it identifies one, it will go into “chasing mode”, speeding up to pursue it. Once it catches the prey, it will eat the prey (i.e. make it disappear).",
           "id": 1699028806288,
           "level": "default",
-          "done": false,
-          "start": 1699028806288
+          "done": true,
+          "start": 1699028806288,
+          "focus": false,
+          "end": 1699323091020
         }
       },
       {
@@ -110,6 +120,6 @@
     "showEndTime": false,
     "simpleMode": false,
     "lang": "en",
-    "version": "1699208866203"
+    "version": "1699323289946"
   }
 }

@@ -142,10 +142,6 @@ public class Carrot extends Object {
         return size;
     }
 
-    public PVector getPos() {
-        return pos;
-    }
-
     public Shape getBoundary() {
         AffineTransform at = new AffineTransform();
         at.translate(pos.x, pos.y);

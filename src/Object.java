@@ -24,4 +24,7 @@ public abstract class Object {
     }
 
     protected void draw(Graphics2D g2) {}
+
+    public PVector getPos() {return pos.copy();};
+
 }
