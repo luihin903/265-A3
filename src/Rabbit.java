@@ -93,7 +93,10 @@ public class Rabbit extends Animal {
 
     @Override
     public void draw(Graphics2D g2) {
-        super.draw(g2);
+        if (Setting.drawBoundingBox) {
+            g2.setColor(Color.PINK);
+            g2.draw(getBoundary().getBounds2D());
+        }
 
         AffineTransform af = g2.getTransform();
 
@@ -160,6 +163,15 @@ public class Rabbit extends Animal {
         g2.setTransform(af);
     }
     
+    // Overload
+    public void update(ArrayList<Carrot> carrots, Dimension s, ArrayList<Animal> animals) {
+
+        updateEnergy();
+        updateState();
+        move(carrots, s, animals);
+    }
+
+    // Overload
     public void move(ArrayList<Carrot> carrots, Dimension s, ArrayList<Animal> animals) {
         PVector accel = observe(animals);
         if (moving) {
@@ -254,7 +266,7 @@ public class Rabbit extends Animal {
             if (carrots.get(i) != null) {
                 if (this.getBoundary().intersects(carrots.get(i).getBoundary().getBounds2D())) {
                     stop();
-                    Carrot.eat(i, this);
+                    carrots.get(i).eat(i, this);
                 }
             }
         }

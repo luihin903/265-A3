@@ -76,12 +76,12 @@ public class RabbitPanel extends JPanel implements ActionListener {
             Animal a = animals.get(i);
             if (a instanceof Rabbit) {
                 Rabbit r = (Rabbit) a;
-                r.move(Carrot.get(), getSize(), animals);
+                r.update(Carrot.get(), getSize(), animals);
                 r.eat(Carrot.get());
             }
             else if (a instanceof Lion) {
                 Lion l = (Lion) a;
-                l.move(getSize(), animals);
+                l.update(getSize(), animals);
                 l.eat(animals);
             }
         }

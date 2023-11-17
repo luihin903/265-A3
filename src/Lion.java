@@ -83,7 +83,10 @@ public class Lion extends Animal {
 
     @Override
     public void draw(Graphics2D g) {
-        super.draw(g);
+        if (Setting.drawBoundingBox) {
+            g.setColor(Color.PINK);
+            g.draw(getBoundary().getBounds2D());
+        }
         AffineTransform at = g.getTransform();
         g.translate(pos.x, pos.y);
         g.rotate(vel.heading());
@@ -127,6 +130,14 @@ public class Lion extends Animal {
         g.setTransform(at);
     }
 
+    // Overload
+    public void update(Dimension s, ArrayList<Animal> animals) {
+
+        updateEnergy();
+        updateState();
+        move(s, animals);
+    }
+
     public void move(Dimension s, ArrayList<Animal> animals) {
         PVector accel = seek(animals);
         super.move(accel, s, animals);
@@ -153,6 +164,7 @@ public class Lion extends Animal {
             if (animals.get(i) instanceof Rabbit) {
                 Rabbit r = (Rabbit) animals.get(i);
                 if (this.getBoundary().intersects(r.getBoundary().getBounds2D())) {
+                    addEnergy(animals.get(i).getScale() * 10);
                     animals.remove(i);
                     chasing = false;
                 }

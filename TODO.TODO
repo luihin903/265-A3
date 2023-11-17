@@ -2,113 +2,276 @@
   "todotree": {
     "tree": [
       {
-        "key": 1699028762298,
+        "key": 1700201143357,
         "children": [],
         "todo": {
-          "content": "1) Add a predator class to your simulation. For this you have to refactor (redesign) your code. You need to create a superclass with two subclasses. One subclass will be for prey creatures. The second subclass will be for the predator. You have the option to use the creatures that you had in Assignment 2 to be either your prey or predator - adapted to the new requirement though. You have to keep all the shared functionality in the superclass",
-          "id": 1699028762298,
+          "content": "1) Change the superclass in A3P1 into an abstract class, and make at least its draw method to be an abstract one",
+          "id": 1700201143357,
           "level": "default",
           "done": true,
-          "start": 1699028762298,
+          "start": 1700201143357,
           "focus": false,
-          "end": 1699208439613
+          "end": 1700201632669
         }
       },
       {
-        "key": 1699028772008,
+        "key": 1700201156924,
         "children": [
           {
-            "key": 1699028778088,
+            "key": 1700201164589,
             "children": [],
             "todo": {
-              "content": "• For the inheritance/polymorphism design, provide justification – regarding why some goes into superclass, why some are kept in subclasses, adding vs. overriding method etc.). Please write it out with block comments on the very top of these classes (super vs. its two subclasses) files, before the relevant classes’ declarations",
-              "id": 1699028778088,
+              "content": "o When a creature moves, it loses energy at certain rate based on their size AND their speed (you may need to experiment with different values to be desirable)",
+              "id": 1700201164589,
               "level": "default",
               "done": true,
-              "start": 1699028778088,
+              "start": 1700201164589,
               "focus": false,
-              "end": 1699208866145
+              "end": 1700203627942
+            }
+          },
+          {
+            "key": 1700201170549,
+            "children": [],
+            "todo": {
+              "content": "o When a food is consumed, it adds to the creature an amount of energy proportional to the food size",
+              "id": 1700201170549,
+              "level": "default",
+              "done": true,
+              "start": 1700201170549,
+              "focus": false,
+              "end": 1700205346582
+            }
+          },
+          {
+            "key": 1700201176109,
+            "children": [],
+            "todo": {
+              "content": "o When the energy goes above certain level (e.g. 100 units as maximum level), it will gain weights proportionate to the extra energy amount",
+              "id": 1700201176109,
+              "level": "default",
+              "done": true,
+              "start": 1700201176109,
+              "focus": false,
+              "end": 1700203219566
+            }
+          },
+          {
+            "key": 1700201181445,
+            "children": [],
+            "todo": {
+              "content": "o When energy falls below certain level, draw animal as sick. Sick creatures move at half of their speed. When they run out of energy and can’t get food to restore within certain time interval (e.g. 3 seconds), they will die.",
+              "id": 1700201181445,
+              "level": "default",
+              "done": false,
+              "start": 1700201181445
+            }
+          },
+          {
+            "key": 1700201188189,
+            "children": [],
+            "todo": {
+              "content": "o Use appropriate visual to show the creature’s different states of energy level including dying (e.g. color differences as a whole or some body parts, mini animation for dying, etc.)",
+              "id": 1700201188189,
+              "level": "default",
+              "done": false,
+              "start": 1700201188189
             }
           }
         ],
         "todo": {
-          "content": "2) Both of these subclasses need to have at least one property as stored in fields that is unique to themselves. Make at least one of these subclasses expand their functionality by adding a subclass only method (e.g. eating for predator). Both subclasses though must override at least one superclass method (e.g. draw) to have different functionality specific to each of themselves. There must be some significant visual features on their appearance, which set apart clearly a predator from a prey creature",
-          "id": 1699028772008,
+          "content": "2) Incorporate an energy model along the line of FSM for your creatures (including both preys and predators). The FSM employed must use a state variable to refer to a state among different states specified by you using constants, and the state will transition from one into another as per the conditions as follows.",
+          "id": 1700201156924,
           "level": "default",
           "done": true,
-          "start": 1699028772008,
+          "start": 1700201156924,
           "focus": false,
-          "end": 1699223403534
+          "end": 1700203624478
         }
       },
       {
-        "key": 1699028788808,
+        "key": 1700201197029,
         "children": [],
         "todo": {
-          "content": "3) Create two predators and five prey creatures, and include both of them in a single ArrayList typed with their superclass (i.e. along the line of inclusion polymorphism). When processing the superclass typed ArrayList in panel, you should, as a practice to handle the subclass-only method, use instanceof to identify and type casting to call the subclass’ uniquely defined methods (i.e. subclass-only method).",
-          "id": 1699028788808,
+          "content": "3) Add a hunter class to your ecosystem, in appropriate figure (e.g. human or some special creature), and make it a subclass to the abstract superclass as well so as to take advantage of the shared properties and functionality. The hunter object, if it is a creature, must have some significant visual features on their appearance to set it apart clearly from other creatures",
+          "id": 1700201197029,
           "level": "default",
-          "done": true,
-          "start": 1699028788808,
-          "focus": false,
-          "end": 1699223448071
+          "done": false,
+          "start": 1700201197029
         }
       },
       {
-        "key": 1699028795249,
+        "key": 1700201202029,
         "children": [],
         "todo": {
-          "content": "4) For the preys, you will maintain Assignment 2’s creature movement within the environment, the mechanics for choosing the desired food, and the way for pursuing and respawning food. So there must be three types of objects in the panel: Predators, preys, and static (or moving) foods feeding preys only.",
-          "id": 1699028795249,
+          "content": "4) The hunter serves the role of balancing the population of preys and predators in your ecosystem, so that it will come in to intervene when preys run the risk of extinction. A hunter won’t appear until the number of preys drops to half of its initial population (as a result of either predating or starvation), and try to rescue the rest preys by killing the predators.",
+          "id": 1700201202029,
           "level": "default",
-          "done": true,
-          "start": 1699028795249,
-          "focus": false,
-          "end": 1699223620419
+          "done": false,
+          "start": 1700201202029
         }
       },
       {
-        "key": 1699028800752,
-        "children": [],
+        "key": 1700201210013,
+        "children": [
+          {
+            "key": 1700201217157,
+            "children": [],
+            "todo": {
+              "content": "o Each key press should shoot only one missile rather than a stream of it",
+              "id": 1700201217157,
+              "level": "default",
+              "done": false,
+              "start": 1700201217157
+            }
+          },
+          {
+            "key": 1700201224733,
+            "children": [],
+            "todo": {
+              "content": "o When a missile hits a target, the missile itself should be destroyed along with the target (i.e. disappear from the screen)",
+              "id": 1700201224733,
+              "level": "default",
+              "done": false,
+              "start": 1700201224733
+            }
+          },
+          {
+            "key": 1700201230749,
+            "children": [],
+            "todo": {
+              "content": "o The missile should also be destroyed right after it moves out of the screen",
+              "id": 1700201230749,
+              "level": "default",
+              "done": false,
+              "start": 1700201230749
+            }
+          }
+        ],
         "todo": {
-          "content": "5) The prey will use either a FOV or feeler to detect the existence of a predator, and once detected, it will switch to “escape mode” (consider to use a boolean to set it up), i.e. giving up pursuing food and turning and moving away with a faster speed from the predator for a period of time (again custom timer can be employed), and restore pursuing food with normal speed after the period if survived",
-          "id": 1699028800752,
+          "content": "5) The hunter will move up and down along a path near the left edge of the environmenton its own (i.e. move autonomously without keyboard control), and use keyboard control to kill predators by shooting at them with missiles. The hunter should do target shooting (with the missiles locking down on the target and moving toward it until hit like a missile) at the predators, which would hunt per a strategy of killing the toughest predator first (i.e. the one with the largest energy level). It will repeat killing as such until the population of predators also drop to half of its initial population. For the shooting (Please note: you will have a chance to recap the basics of bullet shooting learned in IAT-167 in week 9’s lab) though, it needs to meet the following requirements:",
+          "id": 1700201210013,
           "level": "default",
-          "done": true,
-          "start": 1699028800752,
-          "focus": false,
-          "end": 1699323289890
+          "done": false,
+          "start": 1700201210013
         }
       },
       {
-        "key": 1699028806288,
+        "key": 1700201236789,
         "children": [],
         "todo": {
-          "content": "6) The predator also uses either an FOV or feeler to detect the existence of a prey, once it identifies one, it will go into “chasing mode”, speeding up to pursue it. Once it catches the prey, it will eat the prey (i.e. make it disappear).",
-          "id": 1699028806288,
+          "content": "6) Once achieving the goal (i.e. killing half of the predators), the hunter will disappear, and both preys and predators will, in a delay of 5 seconds, respawn to their initial populationlevel (as specified in 9) below), and the cycle of predating and killing starts again",
+          "id": 1700201236789,
           "level": "default",
-          "done": true,
-          "start": 1699028806288,
-          "focus": false,
-          "end": 1699323091020
+          "done": false,
+          "start": 1700201236789
         }
       },
       {
-        "key": 1699028813383,
+        "key": 1700201243661,
         "children": [],
         "todo": {
-          "content": "7) All newly added fields must be private or protected (when it makes sense) and provided minimal public interface methods when necessary. Also the names of the class, fields and methods must follow the naming convention with appropriate upper- or lower case for the initial and CamelCase thereafter.",
-          "id": 1699028813383,
+          "content": "7) When hunter moves around, both preys and predators will try to avoid bumping with the hunter using either an FOV or feeler while pursuing their food or escape from a predator",
+          "id": 1700201243661,
           "level": "default",
-          "done": true,
-          "start": 1699028813383,
-          "focus": false,
-          "end": 1699208540226
+          "done": false,
+          "start": 1700201243661
+        }
+      },
+      {
+        "key": 1700201248221,
+        "children": [],
+        "todo": {
+          "content": "8) Create 6 predators and 12 prey creatures, and include both of them in a single ArrayListtyped with their superclass. The mechanics and dynamics among predator-prey-food should be maintained as in A3P1",
+          "id": 1700201248221,
+          "level": "default",
+          "done": false,
+          "start": 1700201248221
+        }
+      },
+      {
+        "key": 1700201255869,
+        "children": [],
+        "todo": {
+          "content": "9) Add textual information to be displayed by default above the creatures (including preys, predators, and hunter) as a label and be moving with them, but no rotating and scaling with them though. The information for preys and predators should include their energy level and speed magnitude, and for hunter it should be its health points (out of 100). The display must use appropriate Java font type, and centered around and above the creature with appropriate gap in-between.",
+          "id": 1700201255869,
+          "level": "default",
+          "done": false,
+          "start": 1700201255869
+        }
+      },
+      {
+        "key": 1700201262477,
+        "children": [],
+        "todo": {
+          "content": "10) You should be able to toggle the display of the information on and off for all creatures(including hunter) all at once with the d key of keyboard. Use status bar within window’s frame area with appropriately formatted message to indicate appearance and disappearance of hunter, and dynamic message about how many more predators it needs to kill before restoring the balance of the ecosystem",
+          "id": 1700201262477,
+          "level": "default",
+          "done": false,
+          "start": 1700201262477
+        }
+      },
+      {
+        "key": 1700201321325,
+        "children": [
+          {
+            "key": 1700201328393,
+            "children": [],
+            "todo": {
+              "content": "• Add some visual effect to demonstrate the consequence of killing a predator (mini animation for collapsing, blowing-off pieces, etc.) – up to 1pt",
+              "id": 1700201328393,
+              "level": "default",
+              "done": false,
+              "start": 1700201328393
+            }
+          },
+          {
+            "key": 1700201335437,
+            "children": [],
+            "todo": {
+              "content": "• Make predators not shun but attack the hunter with bumping into them before they get shot and killed. Each bump from predator will cause hunter’s health to reduce by a rate that is proportionate to the creature’s energy level (i.e. the larger the energy, the more the damage), the predator will lose its energy by a fixed amount with each bump as such. The hunter will disappear when it loses all its health and is supposedly dead, and then respawn after some delay e.g. 3 seconds – up to 1pt",
+              "id": 1700201335437,
+              "level": "default",
+              "done": false,
+              "start": 1700201335437
+            }
+          },
+          {
+            "key": 1700201346725,
+            "children": [],
+            "todo": {
+              "content": "• After the hunter fires the 1st shot, and kills the 1st predator, all other predators will approach and attack the hunter as a team in the pattern of a triangle, leading by the one that has the largest energy level. The pattern will be maintained throughout the attacking process, i.e. when the leader got killed then the next one with the largest energy level will fill in the leading position. After killing the hunter, they will restore to their regular prey hunting if they have survived – up to 2pts",
+              "id": 1700201346725,
+              "level": "default",
+              "done": false,
+              "start": 1700201346725
+            }
+          },
+          {
+            "key": 1700201371277,
+            "children": [],
+            "todo": {
+              "content": "Note: a) You must indicate in the comment at the top of the main file if any bonus feature you have attempted and also clearly indicate bonus functionality in the comments at the appropriate places. b) Total bonus is capped at 3, i.e. you’ll get 3 even if the add-up goesbeyond 3.",
+              "id": 1700201371277,
+              "level": "default",
+              "done": false,
+              "start": 1700201371277
+            }
+          }
+        ],
+        "todo": {
+          "content": "BONUS (up to 3 pts):",
+          "id": 1700201321325,
+          "level": "default",
+          "done": false,
+          "start": 1700201321325
         }
       }
     ],
     "expandKeys": [
-      1699028772008
+      1700201156924,
+      1700201210013,
+      1700201321325
     ],
     "schema": "https://github.com/Saber2pr/vsc-ext-todolist/blob/master/src/api/type.ts#L3",
     "add_mode": "bottom",
@@ -120,6 +283,6 @@
     "showEndTime": false,
     "simpleMode": false,
     "lang": "en",
-    "version": "1699323289946"
+    "version": "1700205430361"
   }
 }

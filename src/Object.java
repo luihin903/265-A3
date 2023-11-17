@@ -23,7 +23,7 @@ public abstract class Object {
         pos = Util.random(s, dim);
     }
 
-    protected void draw(Graphics2D g2) {}
+    protected abstract void draw(Graphics2D g2);
 
     public PVector getPos() {return pos.copy();};
 

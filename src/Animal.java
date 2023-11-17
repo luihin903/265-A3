@@ -4,7 +4,6 @@
  */
 
 
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.Shape;
@@ -24,6 +23,15 @@ public abstract class Animal extends Object {
     protected boolean moving = true;
     protected Area area;
     protected Arc2D.Double fov;
+    protected int state;
+    protected double energy;
+
+    // FSM
+    protected final double FULL_ENERGY = 100;
+    
+    protected final int FULL = 2;
+    protected final int SICK = 1;
+    protected final int DEAD = 0;
 
     protected Animal() {
         super();
@@ -34,6 +42,7 @@ public abstract class Animal extends Object {
         this.vel = new PVector(Util.random(-100, 100), Util.random(-100, 100));
         this.speed = speed;
         this.scale = scale;
+        this.energy = FULL_ENERGY;
         setShape();
     }
     
@@ -42,11 +51,14 @@ public abstract class Animal extends Object {
         fov = new Arc2D.Double(-sight, -sight, sight*2, sight*2, -55, 110, Arc2D.PIE);
     }
 
-    protected void draw(Graphics2D g) {
-        if (Setting.drawBoundingBox) {
-            g.setColor(Color.PINK);
-            g.draw(getBoundary().getBounds2D());
-        }
+    protected abstract void draw(Graphics2D g);
+
+    protected void update(PVector accel, Dimension s, ArrayList<Animal> animals) {
+        
+        updateEnergy();
+        updateState();
+        
+        move(accel, s, animals);
     }
 
     protected void move(PVector accel, Dimension s, ArrayList<Animal> animals) {
@@ -56,6 +68,8 @@ public abstract class Animal extends Object {
         vel.normalize();
         vel.mult((float) speed);
         pos.add(vel);
+
+        energy -= (scale * speed) / 20;
         
     }
 
@@ -89,5 +103,35 @@ public abstract class Animal extends Object {
         at.translate(pos.x, pos.y);
         at.rotate(vel.heading());
         return at.createTransformedShape(fov);
+    }
+
+    protected double getScale() {
+        return scale;
+    }
+
+    protected void updateEnergy() {
+
+        if (energy > FULL_ENERGY) {
+            scale *= (energy / FULL_ENERGY);
+            energy = FULL_ENERGY;
+        }
+    }
+
+    protected void updateState() {
+
+        if (energy < 0) {
+            state = DEAD;
+        }
+        else if (energy < FULL_ENERGY/2) {
+            state = SICK;
+        }
+        else {
+            state = FULL;
+        }
+
+    }
+
+    protected void addEnergy(double amount) {
+        energy += amount;
     }
 }

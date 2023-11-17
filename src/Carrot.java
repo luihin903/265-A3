@@ -101,9 +101,10 @@ public class Carrot extends Object {
         g2.setTransform(af);
     }
 
-    public static void eat(int i, Rabbit rabbit) {
-        carrots.get(i).size --;
-        if (carrots.get(i).size == 0) {
+    public void eat(int i, Rabbit rabbit) {
+        this.size --;
+        if (this.size == 0) {
+            rabbit.addEnergy(this.size / 2);
             carrots.remove(i);
             rabbit.start();
             Carrot.spawn();
