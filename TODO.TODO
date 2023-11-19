@@ -63,8 +63,10 @@
               "content": "o When energy falls below certain level, draw animal as sick. Sick creatures move at half of their speed. When they run out of energy and can’t get food to restore within certain time interval (e.g. 3 seconds), they will die.",
               "id": 1700201181445,
               "level": "default",
-              "done": false,
-              "start": 1700201181445
+              "done": true,
+              "start": 1700201181445,
+              "focus": false,
+              "end": 1700383002676
             }
           },
           {
@@ -74,8 +76,10 @@
               "content": "o Use appropriate visual to show the creature’s different states of energy level including dying (e.g. color differences as a whole or some body parts, mini animation for dying, etc.)",
               "id": 1700201188189,
               "level": "default",
-              "done": false,
-              "start": 1700201188189
+              "done": true,
+              "start": 1700201188189,
+              "focus": false,
+              "end": 1700383009798
             }
           }
         ],
@@ -283,6 +287,6 @@
     "showEndTime": false,
     "simpleMode": false,
     "lang": "en",
-    "version": "1700205430361"
+    "version": "1700383009967"
   }
 }

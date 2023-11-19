@@ -15,6 +15,7 @@ import processing.core.PVector;
 public class Carrot extends Object {
     
     private int size = 100;
+    private int originalSize = size;
     private Area area;
     private static ArrayList<Carrot> carrots = new ArrayList<Carrot>();
     private static boolean adding;
@@ -30,6 +31,7 @@ public class Carrot extends Object {
         this.pos = pos;
         this.dim = dim;
         this.size = size;
+        this.originalSize = size;
         Carrot.carrots = carrots;
     }
 
@@ -53,6 +55,7 @@ public class Carrot extends Object {
 
     private static void spawn() {
         int size = Util.random(50, 150);
+    
         PVector pos = Util.random(RabbitPanel.size, default_dim.copy().mult(size/default_dim.x));
         carrots.add(new Carrot(pos, size));
     }
@@ -104,7 +107,7 @@ public class Carrot extends Object {
     public void eat(int i, Rabbit rabbit) {
         this.size --;
         if (this.size == 0) {
-            rabbit.addEnergy(this.size / 2);
+            rabbit.addEnergy(this.originalSize / 2);
             carrots.remove(i);
             rabbit.start();
             Carrot.spawn();
@@ -141,6 +144,10 @@ public class Carrot extends Object {
 
     public int getSize() {
         return size;
+    }
+
+    public int getOriginalSize() {
+        return originalSize;
     }
 
     public Shape getBoundary() {

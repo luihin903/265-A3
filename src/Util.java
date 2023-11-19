@@ -1,5 +1,6 @@
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Graphics2D;
 
 import processing.core.PVector;
 
@@ -51,6 +52,11 @@ public abstract class Util {
     // return the opposite color
     public static Color opposite(Color color) {
         return new Color(255 - color.getRed(), 255 - color.getGreen(), 255 - color.getBlue());
+    }
+
+    // return the width of a given string under the default font
+    public static int getStringWidth(Graphics2D g, String text) {
+        return g.getFontMetrics(Setting.font).stringWidth(text);
     }
 
 }

@@ -4,7 +4,9 @@
  */
 
 
+import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.Shape;
 import java.awt.geom.AffineTransform;
@@ -25,6 +27,7 @@ public abstract class Animal extends Object {
     protected Arc2D.Double fov;
     protected int state;
     protected double energy;
+    protected String type; // Class Name
 
     // FSM
     protected final double FULL_ENERGY = 100;
@@ -52,6 +55,30 @@ public abstract class Animal extends Object {
     }
 
     protected abstract void draw(Graphics2D g);
+
+    protected void drawInfo(Graphics2D g) {
+        AffineTransform at = g.getTransform();
+        g.translate(pos.x - 50, pos.y - dim.y/2 - 50);
+        g.setColor(Color.LIGHT_GRAY);
+        g.fillRect(0, 0, 100, 50);
+
+        g.setColor(Color.BLACK);
+        g.setFont(Setting.font);
+
+        String text = String.format(type);
+        int sw = Util.getStringWidth(g, type);
+        g.drawString(type, (100-sw) / 2, 16);
+        
+        text = String.format("Energy: %.1f", energy);
+        sw = Util.getStringWidth(g, text);
+        g.drawString(text, (100-sw) / 2, 32);
+
+        text = String.format("Size: %.1f", scale);
+        sw = Util.getStringWidth(g, text);
+        g.drawString(text, (100-sw) / 2, 48);
+
+        g.setTransform(at);
+    }
 
     protected void update(PVector accel, Dimension s, ArrayList<Animal> animals) {
         
@@ -109,6 +136,10 @@ public abstract class Animal extends Object {
         return scale;
     }
 
+    protected int getState() {
+        return state;
+    }
+
     protected void updateEnergy() {
 
         if (energy > FULL_ENERGY) {
@@ -122,7 +153,7 @@ public abstract class Animal extends Object {
         if (energy < 0) {
             state = DEAD;
         }
-        else if (energy < FULL_ENERGY/2) {
+        else if (energy < FULL_ENERGY/10) {
             state = SICK;
         }
         else {

@@ -41,6 +41,7 @@ public class Lion extends Animal {
 
     public Lion(PVector pos, PVector dim, double speed, double scale) {
         super(pos, dim, speed, scale);
+        type = "Lion";
     }
 
     protected void setShape() {
@@ -103,6 +104,7 @@ public class Lion extends Animal {
         g.draw(rightFoot);
 
         g.setColor(Color.ORANGE);
+        if (state == SICK) g.setColor(Color.LIGHT_GRAY);
         g.fill(body);
         g.fill(leftHand);
         g.fill(rightHand);
@@ -113,6 +115,7 @@ public class Lion extends Animal {
         g.setColor(new Color(135, 67, 18));
         g.fill(around);
         g.setColor(Color.ORANGE);
+        if (state == SICK) g.setColor(Color.LIGHT_GRAY);
         g.fill(head);
         g.setStroke(new BasicStroke(dim.y/10));
         g.draw(tail);
@@ -128,6 +131,8 @@ public class Lion extends Animal {
         g.fill(end);
 
         g.setTransform(at);
+
+        drawInfo(g);
     }
 
     // Overload

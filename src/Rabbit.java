@@ -37,9 +37,10 @@ public class Rabbit extends Animal {
     private Ellipse2D.Double rightEye;
     private Line2D.Double[] face;
 
-    public Rabbit(PVector pos, PVector dim, int speed, float scale, Color color) {
+    public Rabbit(PVector pos, PVector dim, int speed, float scale) {
         super(pos, dim, speed, scale);
-        this.color = color;
+        this.color = Color.WHITE;
+        this.type = "Rabbit";
         setShape();
     }
 
@@ -110,6 +111,7 @@ public class Rabbit extends Animal {
 
         // feet
         g2.setColor(color);
+        if (state == SICK) g2.setColor(Color.LIGHT_GRAY);
         g2.fill(bottomFoot);
         g2.fill(topFoot);
         g2.setColor(Color.BLACK);
@@ -118,6 +120,7 @@ public class Rabbit extends Animal {
         
         // hands
         g2.setColor(color);
+        if (state == SICK) g2.setColor(Color.LIGHT_GRAY);
         g2.fill(bottomHand);
         g2.fill(topHand);
         g2.setColor(Color.BLACK);
@@ -126,6 +129,7 @@ public class Rabbit extends Animal {
 
         // ears
         g2.setColor(color);
+        if (state == SICK) g2.setColor(Color.LIGHT_GRAY);
         g2.fill(leftEar);
         g2.fill(rightEar);
         g2.setColor(Color.BLACK);
@@ -134,18 +138,21 @@ public class Rabbit extends Animal {
 
         // body
         g2.setColor(color);
+        if (state == SICK) g2.setColor(Color.LIGHT_GRAY);
         g2.fill(body);
         g2.setColor(Color.BLACK);
         g2.draw(body);
 
         // head
         g2.setColor(color);
+        if (state == SICK) g2.setColor(Color.LIGHT_GRAY);
         g2.fill(head);
         g2.setColor(Color.BLACK);
         g2.draw(head);
 
         // tail
         g2.setColor(color);
+        if (state == SICK) g2.setColor(Color.LIGHT_GRAY);
         g2.fill(tail);
         g2.setColor(Color.BLACK);
         g2.draw(tail);
@@ -161,6 +168,8 @@ public class Rabbit extends Animal {
         for (int i = 0; i < 5; i ++) g2.draw(face[i]);
 
         g2.setTransform(af);
+
+        drawInfo(g2);
     }
     
     // Overload
