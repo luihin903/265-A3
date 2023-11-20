@@ -1,3 +1,4 @@
+package simulation;
 /*
  * This is a prey
  * It includes some fields which are not in common with the predator
@@ -15,6 +16,7 @@ import java.awt.geom.Ellipse2D;
 import java.awt.geom.Line2D;
 import java.util.ArrayList;
 
+import others.Setting;
 import processing.core.PVector;
 
 public class Rabbit extends Animal {
@@ -22,6 +24,7 @@ public class Rabbit extends Animal {
     private Color color;
     private int escaping = 0;
     public static final PVector default_dim = new PVector(50, 100);
+    public static int amount;
 
     // Shapes
     private Ellipse2D.Double bottomFoot;
@@ -41,7 +44,7 @@ public class Rabbit extends Animal {
         super(pos, dim, speed, scale);
         this.color = Color.WHITE;
         this.type = "Rabbit";
-        setShape();
+        amount ++;
     }
 
     @Override
@@ -174,9 +177,7 @@ public class Rabbit extends Animal {
     
     // Overload
     public void update(ArrayList<Carrot> carrots, Dimension s, ArrayList<Animal> animals) {
-
-        updateEnergy();
-        updateState();
+        super.update();
         move(carrots, s, animals);
     }
 
@@ -185,7 +186,7 @@ public class Rabbit extends Animal {
         PVector accel = observe(animals);
         if (moving) {
             accel = seek(accel, carrots);
-            super.move(accel, s, animals);
+            super.move(accel, s);
         }
         if (escaping > 0) {
             pos.add(vel); // speed up

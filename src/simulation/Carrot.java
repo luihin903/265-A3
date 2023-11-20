@@ -1,3 +1,4 @@
+package simulation;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
@@ -10,6 +11,10 @@ import java.awt.event.MouseEvent;
 
 import java.util.ArrayList;
 
+import main.RabbitPanel;
+import others.Object;
+import others.Setting;
+import others.Util;
 import processing.core.PVector;
 
 public class Carrot extends Object {

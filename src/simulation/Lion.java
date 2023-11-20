@@ -1,3 +1,4 @@
+package simulation;
 /*
  * This is a predator
  * It includes some fields which are not in common with the prey
@@ -18,12 +19,14 @@ import java.awt.geom.Ellipse2D;
 import java.awt.geom.Line2D;
 import java.util.ArrayList;
 
+import others.Setting;
 import processing.core.PVector;
 
 public class Lion extends Animal {
     
     private boolean chasing = false;
     public static final PVector default_dim = new PVector(200, 100);
+    public static int amount = 0;
 
     private Ellipse2D.Double around;
     private Ellipse2D.Double head;
@@ -42,8 +45,10 @@ public class Lion extends Animal {
     public Lion(PVector pos, PVector dim, double speed, double scale) {
         super(pos, dim, speed, scale);
         type = "Lion";
+        amount ++;
     }
 
+    @Override
     protected void setShape() {
         super.setShape();
 
@@ -137,15 +142,13 @@ public class Lion extends Animal {
 
     // Overload
     public void update(Dimension s, ArrayList<Animal> animals) {
-
-        updateEnergy();
-        updateState();
+        super.update();
         move(s, animals);
     }
 
     public void move(Dimension s, ArrayList<Animal> animals) {
         PVector accel = seek(animals);
-        super.move(accel, s, animals);
+        super.move(accel, s);
         if (chasing) pos.add(vel); // speed up
     }
 
@@ -171,6 +174,7 @@ public class Lion extends Animal {
                 if (this.getBoundary().intersects(r.getBoundary().getBounds2D())) {
                     addEnergy(animals.get(i).getScale() * 10);
                     animals.remove(i);
+                    Rabbit.amount --;
                     chasing = false;
                 }
             }

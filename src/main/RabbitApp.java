@@ -1,4 +1,7 @@
+package main;
 import javax.swing.JFrame;
+
+import others.Setting;
 
 public class RabbitApp extends JFrame {
 	

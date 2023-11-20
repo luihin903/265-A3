@@ -100,8 +100,10 @@
           "content": "3) Add a hunter class to your ecosystem, in appropriate figure (e.g. human or some special creature), and make it a subclass to the abstract superclass as well so as to take advantage of the shared properties and functionality. The hunter object, if it is a creature, must have some significant visual features on their appearance to set it apart clearly from other creatures",
           "id": 1700201197029,
           "level": "default",
-          "done": false,
-          "start": 1700201197029
+          "done": true,
+          "start": 1700201197029,
+          "focus": false,
+          "end": 1700438538700
         }
       },
       {
@@ -111,8 +113,10 @@
           "content": "4) The hunter serves the role of balancing the population of preys and predators in your ecosystem, so that it will come in to intervene when preys run the risk of extinction. A hunter won’t appear until the number of preys drops to half of its initial population (as a result of either predating or starvation), and try to rescue the rest preys by killing the predators.",
           "id": 1700201202029,
           "level": "default",
-          "done": false,
-          "start": 1700201202029
+          "done": true,
+          "start": 1700201202029,
+          "focus": false,
+          "end": 1700453685673
         }
       },
       {
@@ -125,8 +129,10 @@
               "content": "o Each key press should shoot only one missile rather than a stream of it",
               "id": 1700201217157,
               "level": "default",
-              "done": false,
-              "start": 1700201217157
+              "done": true,
+              "start": 1700201217157,
+              "focus": false,
+              "end": 1700462701100
             }
           },
           {
@@ -136,8 +142,10 @@
               "content": "o When a missile hits a target, the missile itself should be destroyed along with the target (i.e. disappear from the screen)",
               "id": 1700201224733,
               "level": "default",
-              "done": false,
-              "start": 1700201224733
+              "done": true,
+              "start": 1700201224733,
+              "focus": false,
+              "end": 1700462706115
             }
           },
           {
@@ -147,24 +155,28 @@
               "content": "o The missile should also be destroyed right after it moves out of the screen",
               "id": 1700201230749,
               "level": "default",
-              "done": false,
-              "start": 1700201230749
+              "done": true,
+              "start": 1700201230749,
+              "focus": false,
+              "end": 1700463425685
             }
           }
         ],
         "todo": {
-          "content": "5) The hunter will move up and down along a path near the left edge of the environmenton its own (i.e. move autonomously without keyboard control), and use keyboard control to kill predators by shooting at them with missiles. The hunter should do target shooting (with the missiles locking down on the target and moving toward it until hit like a missile) at the predators, which would hunt per a strategy of killing the toughest predator first (i.e. the one with the largest energy level). It will repeat killing as such until the population of predators also drop to half of its initial population. For the shooting (Please note: you will have a chance to recap the basics of bullet shooting learned in IAT-167 in week 9’s lab) though, it needs to meet the following requirements:",
+          "content": "5) The hunter will move up and down along a path near the left edge of the environment on its own (i.e. move autonomously without keyboard control), and use keyboard control to kill predators by shooting at them with missiles. The hunter should do target shooting (with the missiles locking down on the target and moving toward it until hit like a missile) at the predators, which would hunt per a strategy of killing the toughest predator first (i.e. the one with the largest energy level). It will repeat killing as such until the population of predators also drop to half of its initial population. For the shooting (Please note: you will have a chance to recap the basics of bullet shooting learned in IAT-167 in week 9’s lab) though, it needs to meet the following requirements:",
           "id": 1700201210013,
           "level": "default",
-          "done": false,
-          "start": 1700201210013
+          "done": true,
+          "start": 1700201210013,
+          "focus": false,
+          "end": 1700463423285
         }
       },
       {
         "key": 1700201236789,
         "children": [],
         "todo": {
-          "content": "6) Once achieving the goal (i.e. killing half of the predators), the hunter will disappear, and both preys and predators will, in a delay of 5 seconds, respawn to their initial populationlevel (as specified in 9) below), and the cycle of predating and killing starts again",
+          "content": "6) Once achieving the goal (i.e. killing half of the predators), the hunter will disappear, and both preys and predators will, in a delay of 5 seconds, respawn to their initial population level (as specified in 9) below), and the cycle of predating and killing starts again",
           "id": 1700201236789,
           "level": "default",
           "done": false,
@@ -200,8 +212,10 @@
           "content": "9) Add textual information to be displayed by default above the creatures (including preys, predators, and hunter) as a label and be moving with them, but no rotating and scaling with them though. The information for preys and predators should include their energy level and speed magnitude, and for hunter it should be its health points (out of 100). The display must use appropriate Java font type, and centered around and above the creature with appropriate gap in-between.",
           "id": 1700201255869,
           "level": "default",
-          "done": false,
-          "start": 1700201255869
+          "done": true,
+          "start": 1700201255869,
+          "focus": false,
+          "end": 1700464257632
         }
       },
       {
@@ -287,6 +301,6 @@
     "showEndTime": false,
     "simpleMode": false,
     "lang": "en",
-    "version": "1700383009967"
+    "version": "1700464257745"
   }
 }

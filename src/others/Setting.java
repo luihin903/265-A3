@@ -1,3 +1,4 @@
+package others;
 import java.awt.Font;
 import java.awt.GraphicsEnvironment;
 import java.util.Arrays;
@@ -12,6 +13,9 @@ public abstract class Setting {
 	public static final PVector default_size = new PVector(1200, 800);
 	public static final String[] fonts = GraphicsEnvironment.getLocalGraphicsEnvironment().getAvailableFontFamilyNames();
 	public static Font font;
+	public static final int rabbits = 5;
+	public static final int lions = 2;
+	
 
 	static {
 

@@ -1,39 +1,51 @@
+package main;
+
+
+
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.geom.AffineTransform;
 import java.util.ArrayList;
 
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
+import others.*;
 import processing.core.PVector;
+import simulation.*;
 
 public class RabbitPanel extends JPanel implements ActionListener {
     
     private Timer t;
     public static Dimension size;
     private ArrayList<Animal> animals = new ArrayList<Animal>();
+    private boolean ready = true; // to fire
 
     public RabbitPanel(Dimension initialSize) {
         super();
 
         size = initialSize;
 
-        for (int i = 0; i < 5; i ++) {
+        for (int i = 0; i < Setting.rabbits; i ++) {
             float scale = Util.random(0.5f, 1.5f);
             PVector dim = Rabbit.default_dim.copy().mult(scale);
             animals.add(new Rabbit(Util.random(size, dim), dim, 2, scale));
         }
-        for (int i = 0; i < 2; i ++) {
+        for (int i = 0; i < Setting.lions; i ++) {
             float scale = Util.random(0.5f, 1.5f);
             PVector dim = Lion.default_dim.copy().mult(scale);
             animals.add(new Lion(Util.random(size, dim), dim, 2, scale));
         }
+
+        animals.add(new Hunter());
         
         Tree.init(6, initialSize);
         Flower.init(6, initialSize);
@@ -42,8 +54,10 @@ public class RabbitPanel extends JPanel implements ActionListener {
         t = new Timer((int) (1000/Setting.FPS), this);
         t.start();
 
+        addKeyListener(new MyKeyAdapter());
         addMouseListener(new MyMouseAdapter());
         addMouseMotionListener(new MyMouseMotionAdapter());
+        setFocusable(true);
     }
 
     @Override
@@ -60,6 +74,8 @@ public class RabbitPanel extends JPanel implements ActionListener {
         Flower.drawAll(g2);
         for (Animal a : animals) a.draw(g2);
 
+        drawInfo(g2);
+
         // g2.drawOval(0, 0, 100, 100);
         // g2.drawOval(size.width-20-100, size.height-20-100, 100, 100);
         // for (int i = 0; i < 20; i ++) {
@@ -71,7 +87,7 @@ public class RabbitPanel extends JPanel implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        
+
         for (int i = 0; i < animals.size(); i ++) {
             Animal a = animals.get(i);
             if (a instanceof Rabbit) {
@@ -84,7 +100,14 @@ public class RabbitPanel extends JPanel implements ActionListener {
                 l.update(getSize(), animals);
                 l.eat(animals);
             }
+            else if (a instanceof Hunter) {
+                Hunter h = (Hunter) a;
+                h.update(getSize(), animals);
+            }
+
             if (a.getState() == 0) {
+                if (a instanceof Rabbit) Rabbit.amount --;
+                else Lion.amount --;
                 animals.remove(i);
             }
         }
@@ -94,7 +117,48 @@ public class RabbitPanel extends JPanel implements ActionListener {
         repaint();
     }
 
+    private void drawInfo(Graphics2D g) {
+        AffineTransform at = g.getTransform();
+        g.translate(Setting.margin, getSize().height - Setting.margin);
 
+        g.setColor(Color.WHITE);
+        g.fillRect(0, -20, getSize().width - Setting.margin*2, 20);
+        g.setFont(Setting.font);
+        g.setColor(Color.BLACK);
+
+        if (Rabbit.amount <= Setting.rabbits/2 && Lion.amount > Setting.lions/2) {
+            g.drawString("Hunter has appeared", 0, 0);
+        }
+        else {
+            g.drawString("Hunter has disappeared", 0, 0);
+        }
+
+        g.setTransform(at);
+    }
+
+    private class MyKeyAdapter extends KeyAdapter {
+        @Override
+        public void keyPressed(KeyEvent e) {
+            if (e.getKeyCode() == KeyEvent.VK_SPACE) {
+                if (ready && Rabbit.amount <= Setting.rabbits /2 && Lion.amount > Setting.lions/2) {
+                    for (Animal a : animals) {
+                        if (a instanceof Hunter) {
+                            Hunter h = (Hunter) a;
+                            h.fire();
+                            ready = false;
+                        }
+                    }
+                }
+            }
+        }
+
+        @Override
+        public void keyReleased(KeyEvent e) {
+            if (e.getKeyCode() == KeyEvent.VK_SPACE) {
+                ready = true;
+            }
+        }
+    }
 
     private class MyMouseAdapter extends MouseAdapter {
         public void mousePressed(MouseEvent e) {
