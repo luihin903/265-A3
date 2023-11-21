@@ -21,18 +21,22 @@ import javax.swing.Timer;
 import others.*;
 import processing.core.PVector;
 import simulation.*;
+import simulation.background.*;
 
 public class RabbitPanel extends JPanel implements ActionListener {
     
     private Timer t;
     public static Dimension size;
     private ArrayList<Animal> animals = new ArrayList<Animal>();
-    private boolean ready = true; // to fire
+    private boolean[] ready = new boolean[100];
+    private int respawn = Setting.FPS * 5;
 
     public RabbitPanel(Dimension initialSize) {
         super();
 
         size = initialSize;
+        ready[KeyEvent.VK_SPACE] = true;
+        ready[KeyEvent.VK_D] = true;
 
         for (int i = 0; i < Setting.rabbits; i ++) {
             float scale = Util.random(0.5f, 1.5f);
@@ -73,6 +77,7 @@ public class RabbitPanel extends JPanel implements ActionListener {
         Carrot.drawAll(g2);
         Flower.drawAll(g2);
         for (Animal a : animals) a.draw(g2);
+        Blood.drawAll(g2);
 
         drawInfo(g2);
 
@@ -113,6 +118,25 @@ public class RabbitPanel extends JPanel implements ActionListener {
         }
 
         Carrot.grow();
+        Blood.updateAll();
+
+        if (respawn == 0) {
+            for (int i = Rabbit.amount; i < Setting.rabbits; i ++) {
+                float scale = Util.random(0.5f, 1.5f);
+                PVector dim = Rabbit.default_dim.copy().mult(scale);
+                animals.add(new Rabbit(Util.random(size, dim), dim, 2, scale));
+            }
+            for (int i = Lion.amount; i < Setting.lions; i ++) {
+                float scale = Util.random(0.5f, 1.5f);
+                PVector dim = Lion.default_dim.copy().mult(scale);
+                animals.add(new Lion(Util.random(size, dim), dim, 2, scale));
+            }
+
+            respawn = Setting.FPS * 5;
+        }
+        else if (Lion.amount <= Setting.lions/2) {
+            respawn --;
+        }
 
         repaint();
     }
@@ -140,14 +164,21 @@ public class RabbitPanel extends JPanel implements ActionListener {
         @Override
         public void keyPressed(KeyEvent e) {
             if (e.getKeyCode() == KeyEvent.VK_SPACE) {
-                if (ready && Rabbit.amount <= Setting.rabbits /2 && Lion.amount > Setting.lions/2) {
+                if (ready[KeyEvent.VK_SPACE] && Rabbit.amount <= Setting.rabbits /2 && Lion.amount > Setting.lions/2) {
                     for (Animal a : animals) {
                         if (a instanceof Hunter) {
                             Hunter h = (Hunter) a;
                             h.fire();
-                            ready = false;
+                            ready[KeyEvent.VK_SPACE] = false;
                         }
                     }
+                }
+            }
+            
+            if (e.getKeyCode() == KeyEvent.VK_D) {
+                if (ready[KeyEvent.VK_D]) {
+                    Setting.drawInfo = !Setting.drawInfo;
+                    ready[KeyEvent.VK_D] = false;
                 }
             }
         }
@@ -155,7 +186,10 @@ public class RabbitPanel extends JPanel implements ActionListener {
         @Override
         public void keyReleased(KeyEvent e) {
             if (e.getKeyCode() == KeyEvent.VK_SPACE) {
-                ready = true;
+                ready[KeyEvent.VK_SPACE] = true;
+            }
+            if (e.getKeyCode() == KeyEvent.VK_D) {
+                ready[KeyEvent.VK_D] = true;
             }
         }
     }

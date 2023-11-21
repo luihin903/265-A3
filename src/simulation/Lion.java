@@ -20,6 +20,7 @@ import java.awt.geom.Line2D;
 import java.util.ArrayList;
 
 import others.Setting;
+import others.Util;
 import processing.core.PVector;
 
 public class Lion extends Animal {
@@ -137,7 +138,7 @@ public class Lion extends Animal {
 
         g.setTransform(at);
 
-        drawInfo(g);
+        if (Setting.drawInfo) drawInfo(g);
     }
 
     // Overload
@@ -148,7 +149,7 @@ public class Lion extends Animal {
 
     public void move(Dimension s, ArrayList<Animal> animals) {
         PVector accel = seek(animals);
-        super.move(accel, s);
+        super.move(accel, s, Util.getHunter(animals));
         if (chasing) pos.add(vel); // speed up
     }
 

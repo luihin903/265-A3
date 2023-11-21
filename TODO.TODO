@@ -179,8 +179,10 @@
           "content": "6) Once achieving the goal (i.e. killing half of the predators), the hunter will disappear, and both preys and predators will, in a delay of 5 seconds, respawn to their initial population level (as specified in 9) below), and the cycle of predating and killing starts again",
           "id": 1700201236789,
           "level": "default",
-          "done": false,
-          "start": 1700201236789
+          "done": true,
+          "start": 1700201236789,
+          "focus": false,
+          "end": 1700530809699
         }
       },
       {
@@ -190,19 +192,23 @@
           "content": "7) When hunter moves around, both preys and predators will try to avoid bumping with the hunter using either an FOV or feeler while pursuing their food or escape from a predator",
           "id": 1700201243661,
           "level": "default",
-          "done": false,
-          "start": 1700201243661
+          "done": true,
+          "start": 1700201243661,
+          "focus": false,
+          "end": 1700533409236
         }
       },
       {
         "key": 1700201248221,
         "children": [],
         "todo": {
-          "content": "8) Create 6 predators and 12 prey creatures, and include both of them in a single ArrayListtyped with their superclass. The mechanics and dynamics among predator-prey-food should be maintained as in A3P1",
+          "content": "8) Create 6 predators and 12 prey creatures, and include both of them in a single ArrayList typed with their superclass. The mechanics and dynamics among predator-prey-food should be maintained as in A3P1",
           "id": 1700201248221,
           "level": "default",
-          "done": false,
-          "start": 1700201248221
+          "done": true,
+          "start": 1700201248221,
+          "focus": false,
+          "end": 1700533514942
         }
       },
       {
@@ -225,8 +231,10 @@
           "content": "10) You should be able to toggle the display of the information on and off for all creatures(including hunter) all at once with the d key of keyboard. Use status bar within window’s frame area with appropriately formatted message to indicate appearance and disappearance of hunter, and dynamic message about how many more predators it needs to kill before restoring the balance of the ecosystem",
           "id": 1700201262477,
           "level": "default",
-          "done": false,
-          "start": 1700201262477
+          "done": true,
+          "start": 1700201262477,
+          "focus": false,
+          "end": 1700527161999
         }
       },
       {
@@ -239,8 +247,10 @@
               "content": "• Add some visual effect to demonstrate the consequence of killing a predator (mini animation for collapsing, blowing-off pieces, etc.) – up to 1pt",
               "id": 1700201328393,
               "level": "default",
-              "done": false,
-              "start": 1700201328393
+              "done": true,
+              "start": 1700201328393,
+              "focus": false,
+              "end": 1700536356811
             }
           },
           {
@@ -301,6 +311,6 @@
     "showEndTime": false,
     "simpleMode": false,
     "lang": "en",
-    "version": "1700464257745"
+    "version": "1700536356901"
   }
 }

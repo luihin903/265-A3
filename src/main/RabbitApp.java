@@ -1,3 +1,10 @@
+/*
+	I did the first bonus question:
+		When the hunter kills a lion,
+		the blood splashes out.
+ */
+
+
 package main;
 import javax.swing.JFrame;
 
@@ -17,5 +24,6 @@ public class RabbitApp extends JFrame {
 
 	public static void main(String[] args) {
 		RabbitApp app = new RabbitApp("My Rabbit App");
+		System.out.println(app.getTitle());
 	}
 }

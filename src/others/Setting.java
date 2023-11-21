@@ -10,11 +10,12 @@ public abstract class Setting {
     public static final int margin = 50;
 	public static final int FPS = 30;
 	public static final boolean drawBoundingBox = false;
+	public static boolean drawInfo = true;
 	public static final PVector default_size = new PVector(1200, 800);
 	public static final String[] fonts = GraphicsEnvironment.getLocalGraphicsEnvironment().getAvailableFontFamilyNames();
 	public static Font font;
-	public static final int rabbits = 5;
-	public static final int lions = 2;
+	public static final int rabbits = 12;
+	public static final int lions = 6;
 	
 
 	static {

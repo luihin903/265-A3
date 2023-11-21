@@ -17,6 +17,7 @@ import java.awt.geom.Line2D;
 import java.util.ArrayList;
 
 import others.Setting;
+import others.Util;
 import processing.core.PVector;
 
 public class Rabbit extends Animal {
@@ -172,7 +173,7 @@ public class Rabbit extends Animal {
 
         g2.setTransform(af);
 
-        drawInfo(g2);
+        if (Setting.drawInfo) drawInfo(g2);
     }
     
     // Overload
@@ -186,7 +187,7 @@ public class Rabbit extends Animal {
         PVector accel = observe(animals);
         if (moving) {
             accel = seek(accel, carrots);
-            super.move(accel, s);
+            super.move(accel, s, Util.getHunter(animals));
         }
         if (escaping > 0) {
             pos.add(vel); // speed up

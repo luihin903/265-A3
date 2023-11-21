@@ -57,7 +57,10 @@ public class Missile extends others.Object {
         for (int i = 0; i < animals.size(); i ++) {
             if (this.collides(animals.get(i))) {
                 if (! (animals.get(i) instanceof Hunter)) {
-                    if (animals.get(i) instanceof Lion) Lion.amount --;
+                    if (animals.get(i) instanceof Lion) {
+                        Lion.amount --;
+                        Blood.spawn(pos);
+                    }
                     else Rabbit.amount --;
                     animals.remove(i);
                     return true;

@@ -2,8 +2,13 @@ package others;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
+import java.util.ArrayList;
 
 import processing.core.PVector;
+import simulation.Animal;
+import simulation.Hunter;
+import simulation.Lion;
+import simulation.Rabbit;
 
 public abstract class Util {
     
@@ -58,6 +63,23 @@ public abstract class Util {
     // return the width of a given string under the default font
     public static int getStringWidth(Graphics2D g, String text) {
         return g.getFontMetrics(Setting.font).stringWidth(text);
+    }
+
+    // return if the hunter appeared or not
+    public static boolean isHunting() {
+        return Rabbit.amount <= Setting.rabbits/2 && Lion.amount > Setting.lions/2;
+    }
+
+    // return the hunter from animals
+    public static Hunter getHunter(ArrayList<Animal> animals) {
+        for (Animal a : animals) {
+            if (a instanceof Hunter) {
+                return (Hunter) a;
+            }
+        }
+
+        animals.add(new Hunter());
+        return (Hunter) animals.get(animals.size()-1);
     }
 
 }

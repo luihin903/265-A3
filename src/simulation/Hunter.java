@@ -10,6 +10,7 @@ import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 
 import others.Setting;
+import others.Util;
 import processing.core.PVector;
 
 public class Hunter extends Animal {
@@ -51,7 +52,11 @@ public class Hunter extends Animal {
     }
 
     public void draw(Graphics2D g) {
-        if (Rabbit.amount > Setting.rabbits/2 || Lion.amount < Setting.lions/2) {
+        for (Missile m : missiles) {
+            m.draw(g);
+        }
+
+        if (! Util.isHunting()) {
             return;
         }
 
@@ -75,16 +80,12 @@ public class Hunter extends Animal {
 
         g.setTransform(at);
 
-        drawInfo(g);
-
-        for (Missile m : missiles) {
-            m.draw(g);
-        }
+        if (Setting.drawInfo) drawInfo(g);
     }
     
     // Overload
     public void update(Dimension s, ArrayList<Animal> animals) {
-        super.move(vel, s);
+        super.move(vel, s, this);
         for (int i = 0; i < missiles.size(); i ++) {
             if (missiles.get(i).update(animals)) {
                 missiles.remove(i);
@@ -105,7 +106,6 @@ public class Hunter extends Animal {
     }
 
     public void fire() {
-        System.out.println("fire");
         missiles.add(new Missile(pos.copy()));
     }
 }

@@ -97,9 +97,14 @@ public abstract class Animal extends Object {
         updateState();
     };
 
-    protected void move(PVector accel, Dimension s) {
+    protected void move(PVector accel, Dimension s, Hunter hunter) {
         
-        accel = checkCollision(accel, s);
+        if (this instanceof Hunter) {
+            accel = ((Hunter) this).checkCollision(accel, s);
+        }
+        else {
+            accel = checkCollision(accel, s, hunter);
+        }
         vel.add(accel.mult(0.5f));
         vel.normalize();
         vel.mult((float) speed);
@@ -109,7 +114,7 @@ public abstract class Animal extends Object {
         
     }
 
-    protected PVector checkCollision(PVector accel, Dimension s) {
+    protected PVector checkCollision(PVector accel, Dimension s, Hunter hunter) {
         int margin = Setting.margin;
 
         Rectangle2D.Double top = new Rectangle2D.Double(margin, 0, s.width-margin*2, margin);
@@ -122,6 +127,12 @@ public abstract class Animal extends Object {
         if (getFOV().intersects(left)) accel.add(1, 0);
         if (getFOV().intersects(right)) accel.add(-1, 0);
 
+        if (Util.isHunting()) {
+            if (getFOV().intersects(hunter.getBoundary().getBounds2D())) {
+            accel.add(2, 0);
+            }
+        }
+        
         return accel.copy();
     }
 
